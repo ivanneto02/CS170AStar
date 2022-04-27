@@ -5,6 +5,8 @@ SET(CMAKE_CXX_STANDARD 11)
 ADD_SUBDIRECTORY(googletest)
 
 ADD_EXECUTABLE(test
+	src/Board.cpp
+	src/Queue.cpp
 	unit_test.cpp
 )
 
