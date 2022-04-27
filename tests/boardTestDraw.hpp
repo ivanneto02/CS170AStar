@@ -12,7 +12,7 @@ TEST(BoardTestDraw, drawEmptyBoard) {
     std::ostringstream output;
 
     newBoard.draw(output);
-
+    
     std::string compare = "- - - \n0 0 0 \n0 0 0 \n0 0 0 \n- - - \n";
 
     EXPECT_EQ(compare, output.str()); 
