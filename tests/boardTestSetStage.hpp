@@ -7,16 +7,7 @@
 
 TEST(BoardTest, testSetStage1) {
 
-    int w = 3;
-    int h = 3;
-
-    std::vector<std::vector<int>> origMat(h);
-    for (int r = 0; r < origMat.size(); r++) { // Iterate through rows
-        origMat.at(r) = std::vector<int>(w);
-        for (int i = 0; i < origMat.at(0).size(); i++) { // Fill up row
-            origMat.at(r).at(i) = 0;
-        }
-    }
+    std::vector<std::vector<int>> origMat = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
     Board newBoard = Board();
     newBoard.setStage(origMat);
@@ -25,59 +16,129 @@ TEST(BoardTest, testSetStage1) {
     std::ostringstream compare;
 
     // Fill up compare string
-    for (int i = 0; i < w; i++) {
+    for (int i = 0; i < origMat.at(0).size(); i++) {
        compare << "- "; 
     }
     compare << "\n";
     // For every row...
-    for (int r = 0; r < h; r++) {
+    for (int r = 0; r < origMat.size(); r++) {
         // For every item in each row...
-        for (int i = 0; i < w; i++) {
+        for (int i = 0; i < origMat.at(0).size(); i++) {
             compare << origMat.at(r).at(i) << " ";
         }
         compare << "\n";
     }
-    for (int i = 0; i < w; i++) {
+    for (int i = 0; i < origMat.at(0).size(); i++) {
        compare << "- "; 
     }
     compare << "\n";
 
-    std::vector<std::vector<int>> mat = newBoard.getMat();
-
-    // Fill up Board string
-    for (int i = 0; i < newBoard.getWidth(); i++) {
-       output << "- "; 
-    }
-    output << "\n";
-    // For every row...
-    for (int r = 0; r < newBoard.getLength(); r++) {
-        // For every item in each row...
-        for (int i = 0; i < newBoard.getWidth(); i++) {
-            output << mat.at(r).at(i) << " ";
-        }
-        output << "\n";
-    }
-    for (int i = 0; i < newBoard.getWidth(); i++) {
-       output << "- "; 
-    }
-    output << "\n";
+    // Draw onto output string stream
+    newBoard.draw(output);
 
     EXPECT_EQ(compare.str(), output.str());
 }
 
 TEST(BoardTest, testSetStage2) {
 
-    EXPECT_EQ(1, 1);
+    std::vector<std::vector<int>> origMat = {{1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}, {11, 12, 13, 14, 15}};
+
+    Board newBoard = Board();
+    newBoard.setStage(origMat);
+
+    std::ostringstream output;
+    std::ostringstream compare;
+
+    // Fill up compare string
+    for (int i = 0; i < origMat.at(0).size(); i++) {
+       compare << "- "; 
+    }
+    compare << "\n";
+    // For every row...
+    for (int r = 0; r < origMat.size(); r++) {
+        // For every item in each row...
+        for (int i = 0; i < origMat.at(0).size(); i++) {
+            compare << origMat.at(r).at(i) << " ";
+        }
+        compare << "\n";
+    }
+    for (int i = 0; i < origMat.at(0).size(); i++) {
+       compare << "- "; 
+    }
+    compare << "\n";
+
+    // Draw onto output string stream
+    newBoard.draw(output);
+
+    EXPECT_EQ(compare.str(), output.str());
 }
 
 TEST(BoardTest, testSetStage3) {
 
-    EXPECT_EQ(1, 1);
+    std::vector<std::vector<int>> origMat = {{1, 2}, {3, 4}};
+
+    Board newBoard = Board();
+    newBoard.setStage(origMat);
+
+    std::ostringstream output;
+    std::ostringstream compare;
+
+    // Fill up compare string
+    for (int i = 0; i < origMat.at(0).size(); i++) {
+       compare << "- "; 
+    }
+    compare << "\n";
+    // For every row...
+    for (int r = 0; r < origMat.size(); r++) {
+        // For every item in each row...
+        for (int i = 0; i < origMat.at(0).size(); i++) {
+            compare << origMat.at(r).at(i) << " ";
+        }
+        compare << "\n";
+    }
+    for (int i = 0; i < origMat.at(0).size(); i++) {
+       compare << "- "; 
+    }
+    compare << "\n";
+
+    // Draw onto output string stream
+    newBoard.draw(output);
+
+    EXPECT_EQ(compare.str(), output.str());
 }
 
 TEST(BoardTest, testSetStage4) {
 
-    EXPECT_EQ(1, 1);
+    std::vector<std::vector<int>> origMat = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+
+    Board newBoard = Board();
+    newBoard.setStage(origMat);
+
+    std::ostringstream output;
+    std::ostringstream compare;
+
+    // Fill up compare string
+    for (int i = 0; i < origMat.at(0).size(); i++) {
+       compare << "- "; 
+    }
+    compare << "\n";
+    // For every row...
+    for (int r = 0; r < origMat.size(); r++) {
+        // For every item in each row...
+        for (int i = 0; i < origMat.at(0).size(); i++) {
+            compare << origMat.at(r).at(i) << " ";
+        }
+        compare << "\n";
+    }
+    for (int i = 0; i < origMat.at(0).size(); i++) {
+       compare << "- "; 
+    }
+    compare << "\n";
+
+    // Draw onto output string stream
+    newBoard.draw(output);
+
+    EXPECT_EQ(compare.str(), output.str());
 }
 
 #endif

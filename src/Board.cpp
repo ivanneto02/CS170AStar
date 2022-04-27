@@ -62,8 +62,16 @@ This function assigns the matrix that A* needs to search through a "game" stage.
 */
 void Board::setStage(const std::vector<std::vector<int>> mat) {
 
+    // Clear previous matrix
+    this->matrix.clear();
+
     // Set matrix
     this->matrix = std::vector<std::vector<int>>(mat.size());
+
+    // Set new board parameters
+    this->width = mat.at(0).size();
+    this->length = mat.size();
+    this->area = this->width * this->length;
 
     // Initialize every item to item value.
     // For every row
@@ -74,7 +82,6 @@ void Board::setStage(const std::vector<std::vector<int>> mat) {
             this->matrix.at(r).at(i) = mat.at(r).at(i);
         }
     }
-
 }
 
 // Clears the board in Board object
@@ -91,7 +98,7 @@ void Board::clear() {
 
 // Draws the board to out ostream
 void Board::draw(std::ostream& out) {
-    for (int i = 0; i < this->width; i++) { out << "-"; }
+    for (int i = 0; i < this->width; i++) { out << "-" << " "; }
     out << "\n";
 
     // For every row...
@@ -104,6 +111,6 @@ void Board::draw(std::ostream& out) {
         out << "\n";
     }
 
-    for (int i = 0; i < this->width; i++) { out << "-"; }
-    return;
+    for (int i = 0; i < this->width; i++) { out << "-" << " "; }
+    out << "\n";
 }

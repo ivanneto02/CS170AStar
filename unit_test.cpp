@@ -4,6 +4,7 @@
 #include "tests/queueTests.hpp"
 #include "tests/boardTestConstructors.hpp"
 #include "tests/boardTestSetStage.hpp"
+#include "tests/boardTestDraw.hpp"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
