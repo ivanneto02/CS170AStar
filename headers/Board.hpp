@@ -34,13 +34,14 @@ class Board {
         int getWidth() const { return this->width; }
         int getLength() const { return this->length; }
         std::vector<std::vector<int>> getMat() const { return this->matrix; }
+        Board* getChild(int) const;
 
         // Functionality
         void setStage(const std::vector<std::vector<int>>);
         void clear();
         void draw(std::ostream&);
         void setParent(Board* parent) { this->parent = parent; }
-        void expand(Board*);
+        void expand();
 };
 
 #endif
