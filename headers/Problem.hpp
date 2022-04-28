@@ -20,6 +20,7 @@ class Problem {
         int size() const { return this->_size; }
         
         int depthOf(Board*) const;
+        int heightOf(Board*) const;
         int heuristic(Board*) const;
 
         // Modifiers
