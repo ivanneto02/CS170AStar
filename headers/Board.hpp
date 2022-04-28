@@ -15,6 +15,8 @@ class Board {
         int area;
         std::vector<std::vector<int>> matrix;
 
+        int depth;
+
         // Keep track of parent node
         Board* parent;
 
@@ -37,6 +39,8 @@ class Board {
         void setStage(const std::vector<std::vector<int>>);
         void clear();
         void draw(std::ostream&);
+        void setParent(Board* parent) { this->parent = parent; }
+        void expand(Board*);
 };
 
 #endif

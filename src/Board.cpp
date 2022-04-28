@@ -114,3 +114,17 @@ void Board::draw(std::ostream& out) {
     for (int i = 0; i < this->width; i++) { out << "-" << " "; }
     out << "\n";
 }
+
+/*
+This function is Board-specific, and it expands a Board node given a board of
+arbitrary, unique positive integers, with a zero denoting the "empty" spot.
+
+Assumptions for this function:
+    - Single empty spot in entire board
+    - Unique positive integers
+    - Square n x n board, not n x m (rectangular)
+*/
+void Board::expand(Board* node) {
+
+    
+}
