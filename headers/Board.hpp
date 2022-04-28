@@ -15,6 +15,12 @@ class Board {
         int area;
         std::vector<std::vector<int>> matrix;
 
+        // Keep track of parent node
+        Board* parent;
+
+        // Children nodes
+        std::vector<std::vector<Board*>> children;
+
     public:
         // Constructors
         Board();
