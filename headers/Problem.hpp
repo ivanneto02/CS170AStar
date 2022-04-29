@@ -23,6 +23,8 @@ class Problem {
         int heightOf(Board*) const;
         int heuristic(Board*) const;
 
+        Board* getRoot() const { return this->root; }
+
         // Modifiers
         void expand(Board*);
 };
