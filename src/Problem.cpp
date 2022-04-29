@@ -4,15 +4,15 @@ Problem::Problem() {
 
     // Default node
     this->root = new Board();
-    this->height = 0;
-    this->size = 1;
+    this->_height = 1;
+    this->_size = 1;
 }
 
 Problem::Problem(Board* root) {
 
     this->root = root;
-    this->height = 0;
-    this->size = 1;
+    this->_height = 1;
+    this->_size = 1;
 }
 
 /*
@@ -24,7 +24,7 @@ Assumptions for this function:
     - Unique positive integers
     - Square n x n board, not n x m (rectangular)
 */
-void Board::expand(Board* node) {
+void Problem::expand(Board* node) {
 
     // Go through every operator, add to children of node.
         // move left, add Board

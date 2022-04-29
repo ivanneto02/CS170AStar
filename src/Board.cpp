@@ -124,7 +124,7 @@ Assumptions for this function:
     - Unique positive integers
     - Square n x n board, not n x m (rectangular)
 */
-void Board::expand(Board* node) {
+void Board::expand() {
 
-    
+    // This function will be done later
 }
