@@ -21,7 +21,8 @@ class Problem {
         
         int depthOf(Board*) const;
         int heightOf(Board*) const;
-        int heuristic(Board*) const;
+        int misplacedHeuristic(Board*) const;
+        int euclideanHeuristic(Board*) const;
 
         Board* getRoot() const { return this->root; }
 
