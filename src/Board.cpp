@@ -8,6 +8,8 @@ Board::Board() {
     
     this->matrix = std::vector<std::vector<int>>(this->length);
 
+    this->curr_cost = 0;
+
     // Initialize every item to 0.
     // For every row
     for (int r = 0; r < this->length; r++) {
@@ -25,6 +27,8 @@ Board::Board(int w, int l) {
     this->area = this->width * this->length;
     
     this->matrix = std::vector<std::vector<int>>(this->length);
+
+    this->curr_cost = 0;
 
     // Initialize every item to 0.
     // For every row
@@ -44,6 +48,8 @@ Board::Board(std::vector<std::vector<int>> mat) {
     this->area = this->width * this->length;
     
     this->matrix = std::vector<std::vector<int>>(this->length);
+
+    this->curr_cost = 0;
 
     // Initialize every item to item value.
     // For every row
@@ -126,5 +132,167 @@ Assumptions for this function:
 */
 void Board::expand() {
 
-    // This function will be done later
+    // Locate 0
+    int row = 0;
+    int col = 0;
+    for (int r = 0; r < matrix.size(); r++) { // rows
+        for (int i = 0; i < matrix.at(0).size(); i++) { // items in rows
+            if (matrix.at(r).at(i) == 0) {
+                row = r;
+                col = i;
+                break;
+            }
+        }
+    } // finished locating 0
+
+    // move left, add Board
+    this->children.push_back( this->move_left(row, col) );
+
+    // move right, add Board
+    this->children.push_back( this->move_right(row, col) );
+
+    // move up, add Board
+    this->children.push_back( this->move_up(row, col) );
+
+    // move down, add Board
+    this->children.push_back( this->move_down(row, col) );
+}
+
+Board* Board::move_left(int r, int c) const {
+
+    // Make a tmp vector
+    std::vector<std::vector<int>> tmp = this->matrix;
+
+    if (c == 0) {
+        // circle-shift vector to the left
+        int left = tmp.at(r).at(0);
+        for (int i = 0; i < tmp.at(0).size() - 1; i++) {
+            tmp.at(r).at(i) = tmp.at(r).at(i+1);
+        }
+        tmp.at(r).at(tmp.at(r).size() - 1) = 0;
+    }
+    else {
+        int tmp_val = tmp.at(r).at(c-1);
+        tmp.at(r).at(c-1) = 0;
+        tmp.at(r).at(c) = tmp_val;
+    }
+
+    // Make and return child based on tmp vector
+    Board* child = new Board(tmp);
+    return child;
+}
+
+Board* Board::move_right(int r, int c) const {
+
+    // Make a tmp vector
+    std::vector<std::vector<int>> tmp = this->matrix;
+
+    // circle-shift vector to the right
+    if (c == tmp.at(0).size() - 1) {
+        int right = tmp.at(r).at(tmp.at(r).size() - 1);
+        for (int i = tmp.at(r).size() - 1; i > 0; i--) {
+            tmp.at(r).at(i) = tmp.at(r).at(i-1);
+        }
+        tmp.at(r).at(0) = right;
+    }
+    else {
+        int tmp_val = tmp.at(r).at(c+1);
+        tmp.at(r).at(c+1) = 0;
+        tmp.at(r).at(c) = tmp_val;
+    }
+
+    // Make and return child based on tmp vector
+    Board* child = new Board(tmp);
+    return child;
+}
+
+Board* Board::move_up(int r, int c) const {
+
+    // Make a tmp vector
+    std::vector<std::vector<int>> tmp = this->matrix;
+
+    if (r == 0) {
+        // circle-shift vector up
+        int up = tmp.at(0).at(c);
+        for (int i = 0; i < tmp.size() - 1; i++) {
+            tmp.at(i).at(c) = tmp.at(i+1).at(c);
+        }
+        tmp.at(tmp.size() - 1).at(c) = up;
+    }
+    else {
+        int tmp_val = tmp.at(r-1).at(c);
+        tmp.at(r-1).at(c) = 0;
+        tmp.at(r).at(c) = tmp_val;
+    }
+
+    // Make and return child based on tmp vector
+    Board* child = new Board(tmp);
+    return child;
+}
+
+Board* Board::move_down(int r, int c) const {
+
+    // Make a tmp vector
+    std::vector<std::vector<int>> tmp = this->matrix;
+
+    if (r == tmp.size() - 1) {
+        // circle-shift vector down
+        int down = tmp.at(tmp.size() - 1).at(c);
+        for (int i = tmp.size() - 1; i > 0; i--) {
+            tmp.at(i).at(c) = tmp.at(i-1).at(c);
+        }
+        tmp.at(0).at(c) = down;    
+    }
+    else {
+        int tmp_val = tmp.at(r+1).at(c);
+        tmp.at(r+1).at(c) = 0;
+        tmp.at(r).at(c) = tmp_val;
+    }
+
+    // Make and return child based on tmp vector
+    Board* child = new Board(tmp);
+    return child;
+}
+
+Board* Board::getChild(int i) const {
+    return this->children.at(i);
+};
+
+// Information
+int Board::f_value() const {
+
+    return (this->curr_cost + this->heuristic);
+}
+
+int Board::misplacedHeuristic() const {
+    
+    int cnt = 0;
+    for (int r = 0; r < this->matrix.size(); r++) {
+        for (int i = 0; i < this->matrix.at(0).size(); i++) {
+
+            if (i+1 != this->matrix.at(r).at(i)) { cnt++; }
+        }
+    }
+    return cnt;
+}
+
+int Board::euclideanHeuristic() const {
+    return 0;
+}
+
+// Overloading == operator for the GameDrive driver
+bool operator==(Board& lhs, Board& rhs) {
+
+    std::vector<std::vector<int>> lhs_mat = lhs.getMat();
+    std::vector<std::vector<int>> rhs_mat = rhs.getMat();
+
+    for (int r = 0; r < lhs_mat.size(); r++) { // For every row in mat
+        for (int i = 0; i < lhs_mat.at(0).size(); i++) { // For every item in row
+            if ( lhs_mat.at(r).at(i) != rhs_mat.at(r).at(i) ) {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }

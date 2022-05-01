@@ -11,6 +11,7 @@
 #include "tests/boardTestSetStage.hpp"
 #include "tests/boardTestDraw.hpp"
 #include "tests/boardTestClear.hpp"
+#include "tests/problemTestExpand.hpp"
 
 // Problem class
 

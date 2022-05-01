@@ -9,6 +9,7 @@ class Problem {
         Board* root;
         int _height;
         int _size;
+        int _heuristic;
 
     public:
         // Constructors
@@ -21,13 +22,13 @@ class Problem {
         
         int depthOf(Board*) const;
         int heightOf(Board*) const;
-        int misplacedHeuristic(Board*) const;
-        int euclideanHeuristic(Board*) const;
+        int heuristicOf(Board*) const;
 
         Board* getRoot() const { return this->root; }
 
         // Modifiers
         void expand(Board*);
+        void setHeuristic(int heuristic) { this->_heuristic = heuristic; }
 };
 
 #endif

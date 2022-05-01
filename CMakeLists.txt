@@ -7,7 +7,17 @@ ADD_SUBDIRECTORY(googletest)
 ADD_EXECUTABLE(test
 	src/Board.cpp
 	src/Queue.cpp
+    src/Problem.cpp
+    src/GameDriver.cpp
 	unit_test.cpp
+)
+
+ADD_EXECUTABLE(ASTar
+    src/Board.cpp
+    src/GameDriver.cpp
+    src/Problem.cpp
+    src/Queue.cpp
+    main.cpp
 )
 
 TARGET_LINK_LIBRARIES(test gtest)

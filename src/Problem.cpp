@@ -6,6 +6,8 @@ Problem::Problem() {
     this->root = new Board();
     this->_height = 1;
     this->_size = 1;
+    this->_heuristic = 1;
+    root->setHeuristic(this->heuristicOf(root));
 }
 
 Problem::Problem(Board* root) {
@@ -13,6 +15,8 @@ Problem::Problem(Board* root) {
     this->root = root;
     this->_height = 1;
     this->_size = 1;
+    this->_heuristic = 1;
+    root->setHeuristic(this->heuristicOf(root));
 }
 
 /*
@@ -25,15 +29,45 @@ Assumptions for this function:
     - Square n x n board, not n x m (rectangular)
 */
 void Problem::expand(Board* node) {
+    
+    // expand the node
+    node->expand();
 
-    // Go through every operator, add to children of node.
-        // move left, add Board
-        // move right, add Board
-        // move up, add Board
-        // move down, add Board
-            
-            // ** Make sure to set parent to `node` for each Board*
+    for (int i = 0; i < 4; i++) {
+        node->getChild(i)->setParent(node);
+        node->getChild(i)->setDepth(node->getDepth() + 1);
+        node->getChild(i)->setCost(node->getCost() + 1);
+        node->setHeuristic(this->heuristicOf(node));
+    }
+}
 
-    // Maybe Board should calculate depth and height in itself.
+int Problem::depthOf(Board* board) const {
+    return board->getDepth();
+}
 
+int Problem::heightOf(Board* board) const {
+    return -999;
+}
+
+int Problem::heuristicOf(Board* board) const {
+
+    switch (this->_heuristic) {
+
+        case 1:
+            return board->noHeuristic();
+            break;
+
+        case 2:
+            return board->misplacedHeuristic();
+            break;
+
+        case 3:
+            return board->euclideanHeuristic();
+            break;
+
+        default:
+            return board->noHeuristic();
+            break;
+    }
+    
 }
