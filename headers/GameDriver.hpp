@@ -9,9 +9,10 @@
 
 /* Comparator to push Board poiters into priority queue */
 class Comp {
+
     public:
-        bool operator()(const Board* a, const Board* b) {
-            return ( a->f_value() ) < ( b->f_value() );
+        bool operator()(Board* a, Board* b) {
+            return ( a->f_valueFrom() ) > ( b->f_valueFrom() );
         }
 };
 
@@ -23,6 +24,7 @@ class GameDriver {
         std::set<Board*> frontier_set;
         std::set<Board*> explored;
         Board* goal;
+        int count;
 
     public:
         // Constructors

@@ -1,4 +1,5 @@
 #include "../headers/Problem.hpp"
+#include "../headers/HeuristicStrategy.hpp"
 
 Problem::Problem() {
 
@@ -7,7 +8,6 @@ Problem::Problem() {
     this->_height = 1;
     this->_size = 1;
     this->_heuristic = 1;
-    root->setHeuristic(this->heuristicOf(root));
 }
 
 Problem::Problem(Board* root) {
@@ -16,7 +16,6 @@ Problem::Problem(Board* root) {
     this->_height = 1;
     this->_size = 1;
     this->_heuristic = 1;
-    root->setHeuristic(this->heuristicOf(root));
 }
 
 /*
@@ -37,7 +36,7 @@ void Problem::expand(Board* node) {
         node->getChild(i)->setParent(node);
         node->getChild(i)->setDepth(node->getDepth() + 1);
         node->getChild(i)->setCost(node->getCost() + 1);
-        node->setHeuristic(this->heuristicOf(node));
+        node->getChild(i)->setContext(this);
     }
 }
 
@@ -51,23 +50,26 @@ int Problem::heightOf(Board* board) const {
 
 int Problem::heuristicOf(Board* board) const {
 
-    switch (this->_heuristic) {
+    Heuristic* strat;
+    // std::cout << "calculating heuristic..." << std::endl;
 
-        case 1:
-            return board->noHeuristic();
-            break;
-
-        case 2:
-            return board->misplacedHeuristic();
-            break;
-
-        case 3:
-            return board->euclideanHeuristic();
-            break;
-
-        default:
-            return board->noHeuristic();
-            break;
+    if(this->_heuristic == 1) {
+        // std::cout << "uniform..." << std::endl;
+        strat = new UniformCostHeuristic();
     }
-    
+    if (this->_heuristic == 2) {
+        // std::cout << "misplaced..." << std::endl;
+        strat = new MisplacedTileHeuristic();
+    }
+    if (this->_heuristic == 3) {
+        // std::cout << "euclidean..." << std::endl;
+        strat = new EuclideanHeuristic();
+
+    }
+    else {
+        // std::cout << "uniform2..." << std::endl;
+        strat = new UniformCostHeuristic();
+    }
+
+    return board->heuristic(strat);
 }

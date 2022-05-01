@@ -4,11 +4,13 @@
 #include <iostream>
 #include <vector>
 #include <ostream>
-// #include "Problem.hpp"
+
+class Heuristic;
+class Problem;
 
 class Board {
-    /* This class acts as a "node" class */
 
+    /* This class acts as a "node" class */
     private:
         // Variables
         int width;
@@ -18,11 +20,11 @@ class Board {
 
         // For AStar
         int curr_cost;
-        int heuristic;
         int depth;
 
         // Keep track of parent node
         Board* parent;
+        Problem* ctx;
 
         // Children nodes
         std::vector<Board*> children;
@@ -41,12 +43,7 @@ class Board {
         int getCost() const { return this->curr_cost; }
         std::vector<std::vector<int>> getMat() const { return this->matrix; }
         Board* getChild(int) const;
-
-        // more accessors
-        int misplacedHeuristic() const;
-        int euclideanHeuristic() const;
-        int noHeuristic() const { return 0; }
-        int getHeuristic() const { return this->heuristic; }
+        int heuristic(Heuristic*) const;
 
         // Functionality
         void setStage(const std::vector<std::vector<int>>);
@@ -55,7 +52,7 @@ class Board {
         void setParent(Board* parent) { this->parent = parent; }
         void setDepth(int dep) { this->depth = dep; }
         void setCost(int cost) { this->curr_cost = cost; }
-        void setHeuristic(int heur) { this->heuristic = heur; }
+        void setContext(Problem*);
         void expand();
         
         // Overloading == operator for the GameDrive driver
@@ -67,7 +64,7 @@ class Board {
         Board* move_up(int, int) const;
         Board* move_down(int, int) const;
 
-        int f_value() const;
+        int f_valueFrom() const;
 };
 
 #endif

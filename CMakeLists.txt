@@ -9,6 +9,7 @@ ADD_EXECUTABLE(test
 	src/Queue.cpp
     src/Problem.cpp
     src/GameDriver.cpp
+    src/HeuristicStrategy.cpp
 	unit_test.cpp
 )
 
@@ -17,6 +18,7 @@ ADD_EXECUTABLE(ASTar
     src/GameDriver.cpp
     src/Problem.cpp
     src/Queue.cpp
+    src/HeuristicStrategy.cpp
     main.cpp
 )
 

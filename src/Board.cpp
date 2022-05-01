@@ -1,4 +1,6 @@
 #include "../headers/Board.hpp"
+#include "../headers/HeuristicStrategy.hpp"
+#include "../headers/Problem.hpp"
 
 // Constructors
 Board::Board() {
@@ -258,28 +260,6 @@ Board* Board::getChild(int i) const {
     return this->children.at(i);
 };
 
-// Information
-int Board::f_value() const {
-
-    return (this->curr_cost + this->heuristic);
-}
-
-int Board::misplacedHeuristic() const {
-    
-    int cnt = 0;
-    for (int r = 0; r < this->matrix.size(); r++) {
-        for (int i = 0; i < this->matrix.at(0).size(); i++) {
-
-            if (i+1 != this->matrix.at(r).at(i)) { cnt++; }
-        }
-    }
-    return cnt;
-}
-
-int Board::euclideanHeuristic() const {
-    return 0;
-}
-
 // Overloading == operator for the GameDrive driver
 bool operator==(Board& lhs, Board& rhs) {
 
@@ -295,4 +275,38 @@ bool operator==(Board& lhs, Board& rhs) {
     }
 
     return true;
+}
+
+int Board::heuristic(Heuristic* ctx) const {
+
+    return ctx->heuristic(this);
+}
+
+int Board::f_valueFrom() const {
+    Heuristic* strat;
+    // std::cout << "calculating f value..." << std::endl;
+
+    if (this->ctx->getHeuristicChoice() == 1) {
+        // std::cout << "uniform..." << std::endl;
+        strat = new UniformCostHeuristic();
+    }
+    if (this->ctx->getHeuristicChoice() == 2) {
+        // std::cout << "misplaced..." << std::endl;
+        strat = new MisplacedTileHeuristic();
+    }
+    if (this->ctx->getHeuristicChoice() == 3) {
+        // std::cout << "euclidean..." << std::endl;
+        strat = new EuclideanHeuristic();
+    }
+    else {
+        // std::cout << "uniform2..." << std::endl;
+        strat = new UniformCostHeuristic();
+    }
+    // std::cout << "end of calculation..." << std::endl;
+
+    return this->getCost() + this->heuristic(strat);
+}
+
+void Board::setContext(Problem* ctx) {
+    this->ctx = ctx;
 }

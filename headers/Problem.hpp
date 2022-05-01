@@ -9,7 +9,7 @@ class Problem {
         Board* root;
         int _height;
         int _size;
-        int _heuristic;
+        int _heuristic; 
 
     public:
         // Constructors
@@ -23,6 +23,8 @@ class Problem {
         int depthOf(Board*) const;
         int heightOf(Board*) const;
         int heuristicOf(Board*) const;
+        int getHeuristicChoice() const { return this->_heuristic; }
+        int f_valueOf(Board*) const;
 
         Board* getRoot() const { return this->root; }
 
