@@ -170,6 +170,7 @@ void GameDriver::beginGame() {
     else {
         std::cout << "Failure!!!\n\n"
                   << "No answer was found. :(" << std::endl;
+        std::cout << "The maximum queue size was: " << this->maxFrontierLength << std::endl; 
     }
 
 }
