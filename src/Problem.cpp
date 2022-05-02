@@ -57,11 +57,11 @@ int Problem::heuristicOf(Board* board) const {
         // std::cout << "uniform..." << std::endl;
         strat = new UniformCostHeuristic();
     }
-    if (this->_heuristic == 2) {
+    else if (this->_heuristic == 2) {
         // std::cout << "misplaced..." << std::endl;
         strat = new MisplacedTileHeuristic();
     }
-    if (this->_heuristic == 3) {
+    else if (this->_heuristic == 3) {
         // std::cout << "euclidean..." << std::endl;
         strat = new EuclideanHeuristic();
 

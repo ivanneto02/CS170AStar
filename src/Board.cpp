@@ -290,11 +290,11 @@ int Board::f_valueFrom() const {
         // std::cout << "uniform..." << std::endl;
         strat = new UniformCostHeuristic();
     }
-    if (this->ctx->getHeuristicChoice() == 2) {
+    else if (this->ctx->getHeuristicChoice() == 2) {
         // std::cout << "misplaced..." << std::endl;
         strat = new MisplacedTileHeuristic();
     }
-    if (this->ctx->getHeuristicChoice() == 3) {
+    else if (this->ctx->getHeuristicChoice() == 3) {
         // std::cout << "euclidean..." << std::endl;
         strat = new EuclideanHeuristic();
     }

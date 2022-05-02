@@ -12,7 +12,9 @@ class Comp {
 
     public:
         bool operator()(Board* a, Board* b) {
-            return ( a->f_valueFrom() ) > ( b->f_valueFrom() );
+
+            return ((a->f_valueFrom() ) > ( b->f_valueFrom()));
+
         }
 };
 
@@ -21,10 +23,11 @@ class GameDriver {
 
     private:
         std::priority_queue<Board*, std::vector<Board*>, Comp> frontier;
-        std::set<Board*> frontier_set;
-        std::set<Board*> explored;
+        std::set<std::vector<std::vector<int>>> frontier_set;
+        std::set<std::vector<std::vector<int>>> explored;
         Board* goal;
         int count;
+        int maxFrontierLength;
 
     public:
         // Constructors
@@ -33,6 +36,8 @@ class GameDriver {
         // Control
         Board* graphSearch(Problem*);
         void beginGame();
+        void printPath(std::ostream&, Board*, int);
+        void defaultTest();
 };
 
 #endif

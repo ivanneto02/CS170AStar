@@ -44,6 +44,7 @@ class Board {
         std::vector<std::vector<int>> getMat() const { return this->matrix; }
         Board* getChild(int) const;
         int heuristic(Heuristic*) const;
+        Board* getParent() const { return this->parent; }
 
         // Functionality
         void setStage(const std::vector<std::vector<int>>);
