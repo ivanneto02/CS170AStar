@@ -38,6 +38,7 @@ void Problem::expand(Board* node) {
         node->getChild(i)->setCost(node->getCost() + 1);
         node->getChild(i)->setContext(this);
     }
+	
 }
 
 int Problem::depthOf(Board* board) const {
